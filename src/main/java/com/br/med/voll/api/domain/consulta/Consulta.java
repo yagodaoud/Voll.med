@@ -2,6 +2,7 @@ package com.br.med.voll.api.domain.consulta;
 
 import com.br.med.voll.api.domain.medico.Medico;
 
+import com.br.med.voll.api.domain.paciente.Paciente;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +27,10 @@ public class Consulta {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medico_id")
     private Medico medico;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
 
     private LocalDateTime data;
 }
