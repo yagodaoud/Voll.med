@@ -6,6 +6,7 @@ import com.br.med.voll.api.domain.medico.Medico;
 import com.br.med.voll.api.domain.medico.MedicoRepository;
 import com.br.med.voll.api.domain.paciente.DadosDetalhamentoPaciente;
 import com.br.med.voll.api.domain.paciente.PacienteRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +40,10 @@ public class AgendaDeConsultas {
 
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedico(dados);
-
-        var consulta = new Consulta(null, medico, paciente, dados.data());
+        if (medico == null) {
+            throw new ValidacaoException("Não existe médico disponível nessa data");
+        }
+        var consulta = new Consulta(null, medico, paciente, dados.data(), null);
 
         consultaRepository.save(consulta);
 
@@ -49,7 +52,7 @@ public class AgendaDeConsultas {
 
     }
 
-    private Medico escolherMedico(DadosAgendamentoConsulta dados) {
+    private Medico escolherMedico(@NotNull DadosAgendamentoConsulta dados) {
         if (dados.idMedico() != null){
             return medicoRepository.getReferenceById(dados.idMedico());
         }

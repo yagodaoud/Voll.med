@@ -2,7 +2,6 @@ package com.br.med.voll.api.controller;
 
 import com.br.med.voll.api.domain.consulta.AgendaDeConsultas;
 import com.br.med.voll.api.domain.consulta.DadosAgendamentoConsulta;
-import com.br.med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
